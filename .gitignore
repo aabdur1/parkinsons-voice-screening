@@ -1,0 +1,28 @@
+# Audio data — not included per course data-sharing restrictions
+HC_AH/
+PD_AH/
+
+# Source data — not included per course data-sharing restrictions
+*.xlsx
+*.xls
+
+# Internal planning / course materials
+*.pptx
+*.pdf
+create_presentation.py
+presentation_content.md
+presentation_script.md
+CLAUDE.md
+docs/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+venv/
+.venv/
+*.egg-info/
+
+# OS
+.DS_Store

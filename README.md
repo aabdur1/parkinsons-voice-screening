@@ -36,10 +36,12 @@ Single self-contained notebook (`parkinsons_analysis.ipynb`) running top-to-bott
 
 ## Key Results
 
-- Best single-split AUC: **0.94** (SVM, all features)
-- Best CV AUC: **~0.88–0.90** (RF/SVM, feature-selected sets)
-- Age confound identified and documented: HC mean age 47.7 vs. PwPD 67.0 (p < 0.0001); age alone AUC = 0.864
-- Mann-Whitney feature selection reduced dimensionality from 167 → ~57 significant features without degrading CV performance
+All numbers below match the committed cell outputs of `parkinsons_analysis.ipynb`.
+
+- Best single-split AUC: **0.819** (XGBoost, all features + demographics) — but the fixed test split holds only 17 samples, so cross-validated numbers are the ones to trust
+- Best CV AUC: **0.912 ± 0.113** (XGBoost, all features + demographics) — driven largely by the age confound below; the best **voice-only** CV AUC is **0.775 ± 0.138** (SVM, 85 Mann-Whitney-selected features)
+- Age confound identified and documented: HC mean age 47.7 vs. PwPD 67.0 (p < 0.0001); age alone AUC = 0.864, exceeding every voice-only model — the honest assessment of voice-based detection is the voice-only models
+- Mann-Whitney feature selection cut the 165 voice features to 57 significant at p < 0.05 (85 at p < 0.20) and *improved* voice-only CV AUC from 0.714 (all 165) to 0.775 (85 selected)
 
 ### Selected output plots
 
@@ -50,7 +52,7 @@ Single self-contained notebook (`parkinsons_analysis.ipynb`) running top-to-bott
 
 ## Limitations
 
-- Small N (n=81): 10-fold CV leaves ~7 test samples per fold; results should be interpreted with caution
+- Small N (n=81): 10-fold CV leaves ~8 test samples per fold; results should be interpreted with caution
 - Age confound: PwPD group is ~20 years older on average; models may partly capture age rather than PD
 - Mean/variance feature summarization loses temporal structure (pitch trajectories, tremor oscillations)
 - Single vowel phoneme — generalization to connected speech unknown

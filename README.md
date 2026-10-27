@@ -36,12 +36,12 @@ Single self-contained notebook (`parkinsons_analysis.ipynb`) running top-to-bott
 
 ## Key Results
 
-All numbers below match the committed cell outputs of `parkinsons_analysis.ipynb`.
+All numbers below match the committed cell outputs of `parkinsons_analysis.ipynb`, except the in-fold selection figures (0.713, 0.734), which come from rerunning the notebook's code with the Mann-Whitney filter fit inside each training fold.
 
 - Best single-split AUC: **0.819** (XGBoost, all features + demographics) — but the fixed test split holds only 17 samples, so cross-validated numbers are the ones to trust
-- Best CV AUC: **0.912 ± 0.113** (XGBoost, all features + demographics) — driven largely by the age confound below; the best **voice-only** CV AUC is **0.775 ± 0.138** (SVM, 85 Mann-Whitney-selected features)
+- Best CV AUC: **0.912 ± 0.113** (XGBoost, all features + demographics) — driven largely by the age confound below; the best honest voice-only CV AUC is about **0.73** (SVM with Mann-Whitney selection fit inside each fold: 0.713 on the notebook's split, 0.734 over 10×10 repeated CV; all 165 features unfiltered: 0.714)
 - Age confound identified and documented: HC mean age 47.7 vs. PwPD 67.0 (p < 0.0001); age alone AUC = 0.864, exceeding every voice-only model — the honest assessment of voice-based detection is the voice-only models
-- Mann-Whitney feature selection cut the 165 voice features to 57 significant at p < 0.05 (85 at p < 0.20) and *improved* voice-only CV AUC from 0.714 (all 165) to 0.775 (85 selected)
+- Correction (Oct 2026): the notebook's feature-selection cell runs the Mann-Whitney filter on all 81 participants before cross-validation, so its 0.775 is optimistic (the filter saw every test fold's labels). With the filter inside each training fold, selection adds nothing (0.713 vs 0.714 unfiltered). Descriptively, 57 of 165 voice features differ at p < 0.05 (uncorrected for 165 tests).
 
 ### Selected output plots
 

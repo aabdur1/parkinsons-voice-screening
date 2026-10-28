@@ -1,10 +1,10 @@
 # Parkinson's Disease Detection from Voice Samples
 
-Binary classification of Parkinson's disease (PD) vs. healthy controls (HC) using sustained-vowel voice recordings. Course project for IDS 506 — Healthcare Information Management & Analytics, UIC MS MIS program, Spring 2026.
+Binary classification of Parkinson's disease (PD) vs. healthy controls (HC) using sustained-vowel voice recordings. Course project for IDS 506 Healthcare Information Management & Analytics, UIC MS MIS program, Spring 2026.
 
 ## Problem
 
-Can acoustic features extracted from a short vowel recording (/a/) reliably distinguish Parkinson's patients from healthy controls? Parkinson's produces characteristic voice changes — increased jitter/shimmer, reduced HNR, altered formant structure — before many motor symptoms are visible, making voice a low-cost, non-invasive screening signal.
+Can acoustic features extracted from a short vowel recording (/a/) reliably distinguish Parkinson's patients from healthy controls? Parkinson's produces characteristic voice changes (increased jitter/shimmer, reduced HNR, altered formant structure) before many motor symptoms are visible, making voice a low-cost, non-invasive screening signal.
 
 ## Data
 
@@ -12,7 +12,7 @@ Can acoustic features extracted from a short vowel recording (/a/) reliably dist
 - Each participant recorded a sustained /a/ vowel (mono WAV, 8 kHz)
 - Pre-calculated baseline spectral features (LPC, LAR, MFCC mean/variance coefficients) provided alongside raw audio
 
-> Audio files and source data are not included in this repository — they were provided for educational use only under course data-sharing restrictions.
+> Audio files and source data are not included in this repository as they were provided for educational use only under course data-sharing restrictions.
 
 ## Methods
 
@@ -38,9 +38,9 @@ Single self-contained notebook (`parkinsons_analysis.ipynb`) running top-to-bott
 
 All numbers below match the committed cell outputs of `parkinsons_analysis.ipynb`, except the in-fold selection figures (0.713, 0.734), which come from rerunning the notebook's code with the Mann-Whitney filter fit inside each training fold.
 
-- Best single-split AUC: **0.819** (XGBoost, all features + demographics) — but the fixed test split holds only 17 samples, so cross-validated numbers are the ones to trust
-- Best CV AUC: **0.912 ± 0.113** (XGBoost, all features + demographics) — driven largely by the age confound below; the best honest voice-only CV AUC is about **0.73** (SVM with Mann-Whitney selection fit inside each fold: 0.713 on the notebook's split, 0.734 over 10×10 repeated CV; all 165 features unfiltered: 0.714)
-- Age confound identified and documented: HC mean age 47.7 vs. PwPD 67.0 (p < 0.0001); age alone AUC = 0.864, exceeding every voice-only model — the honest assessment of voice-based detection is the voice-only models
+- Best single-split AUC: **0.819** (XGBoost, all features + demographics) but the fixed test split holds only 17 samples, so cross-validated numbers are the ones to trust
+- Best CV AUC: **0.912 ± 0.113** (XGBoost, all features + demographics) driven largely by the age confound below; the best honest voice-only CV AUC is about **0.73** (SVM with Mann-Whitney selection fit inside each fold: 0.713 on the notebook's split, 0.734 over 10×10 repeated CV; all 165 features unfiltered: 0.714)
+- Age confound identified and documented: HC mean age 47.7 vs. PwPD 67.0 (p < 0.0001); age alone AUC = 0.864, exceeding every voice-only model. The honest assessment of voice-based detection is the voice-only models
 - Correction (Oct 2026): the notebook's feature-selection cell runs the Mann-Whitney filter on all 81 participants before cross-validation, so its 0.775 is optimistic (the filter saw every test fold's labels). With the filter inside each training fold, selection adds nothing (0.713 vs 0.714 unfiltered). Descriptively, 57 of 165 voice features differ at p < 0.05 (uncorrected for 165 tests).
 
 ### Selected output plots
@@ -64,7 +64,7 @@ pip install -r requirements.txt
 jupyter notebook parkinsons_analysis.ipynb
 ```
 
-**Note:** The notebook requires the audio files (HC_AH/, PD_AH/) and source data spreadsheet to run. These are not included — contact the author if you need a fully reproducible setup.
+**Note:** The notebook requires the audio files (HC_AH/, PD_AH/) and source data spreadsheet to run. These are not included so contact the author if you need a fully reproducible setup.
 
 ## Dependencies
 
